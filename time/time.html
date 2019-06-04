@@ -1,0 +1,39 @@
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="time.css">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Display Date and Time in Javascript</title>
+  <script type="text/javascript" src="date_time.js"></script>
+  <script type="text/javascript" src="hijri.js"></script>
+  <script type="text/javascript" src="imladris.js"></script>
+</head>
+
+
+<body>
+  <div id="date_time"></div>
+  <script type="text/javascript">
+    window.onload = date_time('date_time');
+  </script>
+
+  <br />
+
+  <div id="hijri_date">
+    <script type="text/javascript">
+      document.write(writeIslamicDate(-1));
+    </script>
+  </div>
+
+  <br />
+
+  <div id="imladris">
+    <script type="text/javascript">
+      window.onload = imladris_date('imladris');
+    </script>
+  </div>
+
+
+
+</body>
+
+</html>
