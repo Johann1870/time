@@ -4,8 +4,13 @@
   <link rel="stylesheet" type="text/css" href="time.css">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>Display Date and Time in Javascript</title>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
   <script type="text/javascript" src="date_time.js"></script>
   <script type="text/javascript" src="hijri.js"></script>
+  <script type="text/javascript" src="jdn.js"></script>
+  <script type="text/javascript" src="edn.js"></script>
   <script type="text/javascript" src="imladris.js"></script>
 </head>
 
@@ -25,6 +30,18 @@
   </div>
 
   <br />
+
+  <div id="jdn">
+    <script type="text/javascript">
+      window.onload = julian_day_number('jdn');
+    </script>
+  </div>
+
+  <div id="edn">
+    <script type="text/javascript">
+      window.onload = eldarian_day_number('edn');
+    </script>
+  </div>
 
   <div id="imladris">
     <script type="text/javascript">
