@@ -10,10 +10,10 @@ function julian_day_number(id)
   }
 
   var today = new Date(); //set any date
-  var julian = today.getJulianUTC().toLocaleString('en-GB', {minimumFractionDigits:3, maximumFractionDigits:5}); //get Julian counterpart
+  var julian = today.getJulianUTC().toLocaleString('en-GB', {minimumFractionDigits:3, maximumFractionDigits:9}); //get Julian counterpart
 
 
-  result = 'JDN '+ julian
+  result = 'JDN UTC__: '+ julian
   document.getElementById(id).innerHTML = result;
   setTimeout('julian_day_number("'+id+'");','1000');
   return true

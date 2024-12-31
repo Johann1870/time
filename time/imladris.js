@@ -1,15 +1,16 @@
-function romanize (num) {
-    if (isNaN(num))
-        return NaN;
-    var digits = String(+num).split(""),
-        key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
-               "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
-               "","I","II","III","IV","V","VI","VII","VIII","IX"],
-        roman = "",
-        i = 3;
-    while (i--)
-        roman = (key[+digits.pop() + (i * 10)] || "") + roman;
-    return Array(+digits.join("") + 1).join("M") + roman;
+function romanize(num) {
+  if (isNaN(num))
+    return NaN;
+  var digits = String(+num).split(""),
+    key = ["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM",
+      "", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC",
+      "", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"
+    ],
+    roman = "",
+    i = 3;
+  while (i--)
+    roman = (key[+digits.pop() + (i * 10)] || "") + roman;
+  return Array(+digits.join("") + 1).join("M") + roman;
 }
 
 function imladris_date(id) {
@@ -27,7 +28,9 @@ function imladris_date(id) {
   });
 
   //Eldarian Day Number from Julian Day Number
-  var eldarian = today.getJulianUTC() + 2316981.5;
+  var eldarianUTC = today.getJulianUTC() + 2316981.5;
+  
+  var eldarian = eldarianUTC - (today.getTimezoneOffset()/1440)+0.25; //converts to local time, and adjusts the day number to start at 6pm (roughly sunset).
 
   //Neldien - The three yén cycle of the elvish calendar. The leap loa is skipped
   //   in the final year (year 432 of the cycle) Neldien is Quenya for three yén.
@@ -234,20 +237,23 @@ function imladris_date(id) {
   romYen = romanize(Yen);
 
   //month
-  months = new Array('Yestarë', 'Tuilë', 'Lairë', 'Yávië', 'Enderi', 'Quellë', 'Hrívë', 'Coirë', 'Mettarë')
+  monthsQuenya = new Array('Yestarë', 'Tuilë', 'Lairë', 'Yávië', 'Enderi', 'Quellë', 'Hrívë', 'Coirë', 'Mettarë')
+
+  monthsSindarin = new Array('Yestarë', 'Ethuil', 'Laer', 'Iavas', 'Enderi', 'Firith', 'Rhîw', 'Echuir', 'Mettarë')
 
   //day of week (Enquië)
-  days = new Array('Valanya', 'Elenya', 'Anarya', 'Isilya', 'Aldúya', 'Menelya')
+  daysQuenya = new Array('Valanya', 'Elenya', 'Anarya', 'Isilya', 'Aldúya', 'Menelya')
+
+  daysSindarin = new Array('Orbelain', 'Orgilion', 'Oranor', 'Orithil', 'Orgaladhad', 'Ormenel')
 
 
+  resultQuenya = daysQuenya[dayEnquie] + ', ' + intDayLoasta + ' ' + monthsQuenya[LoastaNumber0b] + ' ' + loaYen + ' ' + romYen + ', (' + Loa + ')';
+
+  resultSindarin = daysSindarin[dayEnquie] + ', ' + intDayLoasta + ' ' + monthsSindarin[LoastaNumber0b] + ' ' + loaYen + ' ' + romYen + ', (' + Loa + ')';
 
 
-
-
-  result = days[dayEnquie] + ', ' + intDayLoasta + ' ' + months[LoastaNumber0b] + ' ' + loaYen + ' '+ romYen + ', ('+Loa+')'
-
-  debug = "<br>" + eldarian + "<br>" + 'Neldien: ' + Neldien + ',  dayNeldien: ' + dayNeldien + ',  loarastaNeldien: ' + loarastaNeldien + ',  dayLoarasta: ' + dayLoarasta + "<br>Loa of the Loarasta: " + loaLoarasta + ',  Loa: ' + Loa + ',  leapLoa: ' + leapLoa + ',  Yen: ' + Yen + ',  hollowYen: ' + hollowYen + ',  loaYen: ' + loaYen + "<br>dayLoa: " + dayLoa + ", LoastaNumber: " + LoastaNumber + ", dayLoasta: " + dayLoasta + ', intDayLoasta: '+intDayLoasta+', dayEnquie: ' + dayEnquie + ', day of Week: '+ days[dayEnquie] +', day number of Enquie: '+dayNumEnquie;
-  document.getElementById(id).innerHTML = '<br>' + result;
+  debug = "<br>" + eldarian + "<br>" + 'Neldien: ' + Neldien + ',  dayNeldien: ' + dayNeldien + ',  loarastaNeldien: ' + loarastaNeldien + ',  dayLoarasta: ' + dayLoarasta + "<br>Loa of the Loarasta: " + loaLoarasta + ',  Loa: ' + Loa + ',  leapLoa: ' + leapLoa + ',  Yen: ' + Yen + ',  hollowYen: ' + hollowYen + ',  loaYen: ' + loaYen + "<br>dayLoa: " + dayLoa + ", LoastaNumber: " + LoastaNumber + ', Loasta name: ' + monthsQuenya[LoastaNumber0b] + ' / ' + monthsSindarin[LoastaNumber0b] + ", dayLoasta: " + dayLoasta + ', intDayLoasta: ' + intDayLoasta + ', dayEnquie: ' + dayEnquie + ', day of Week: ' + daysQuenya[dayEnquie] + ' / ' + daysSindarin[dayEnquie] + ', day number of Enquie: ' + dayNumEnquie;
+  document.getElementById(id).innerHTML = '<br>' + debug;
   setTimeout('imladris_date("' + id + '");', '1000');
   return true
 }
