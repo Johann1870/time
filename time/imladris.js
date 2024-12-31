@@ -221,7 +221,8 @@ function imladris_date(id) {
   }
 
   //The day number of the week (Enquië)
-  dayEnquie = Math.trunc(((eldarian - 1) % 6) + 1);
+  dayNumEnquie = Math.trunc(((eldarian - 1) % 6) + 1);
+  dayEnquie = Math.trunc(eldarian % 6);
 
   //Integer day of Loasta
   intDayLoasta = Math.trunc(dayLoasta);
@@ -245,7 +246,7 @@ function imladris_date(id) {
 
   result = days[dayEnquie] + ', ' + intDayLoasta + ' ' + months[LoastaNumber0b] + ' ' + loaYen + ' '+ romYen + ', ('+Loa+')'
 
-  debug = "<br>" + eldarian + "<br>" + 'Neldien: ' + Neldien + ',  dayNeldien: ' + dayNeldien + ',  loarastaNeldien: ' + loarastaNeldien + ',  dayLoarasta: ' + dayLoarasta + "<br>Loa of the Loarasta: " + loaLoarasta + ',  Loa: ' + Loa + ',  leapLoa: ' + leapLoa + ',  Yen: ' + Yen + ',  hollowYen: ' + hollowYen + ',  loaYen: ' + loaYen + "<br>dayLoa: " + dayLoa + ", LoastaNumber: " + LoastaNumber + ", dayLoasta: " + dayLoasta + ", dayEnquie: " + dayEnquie;
+  debug = "<br>" + eldarian + "<br>" + 'Neldien: ' + Neldien + ',  dayNeldien: ' + dayNeldien + ',  loarastaNeldien: ' + loarastaNeldien + ',  dayLoarasta: ' + dayLoarasta + "<br>Loa of the Loarasta: " + loaLoarasta + ',  Loa: ' + Loa + ',  leapLoa: ' + leapLoa + ',  Yen: ' + Yen + ',  hollowYen: ' + hollowYen + ',  loaYen: ' + loaYen + "<br>dayLoa: " + dayLoa + ", LoastaNumber: " + LoastaNumber + ", dayLoasta: " + dayLoasta + ', intDayLoasta: '+intDayLoasta+', dayEnquie: ' + dayEnquie + ', day of Week: '+ days[dayEnquie] +', day number of Enquie: '+dayNumEnquie;
   document.getElementById(id).innerHTML = '<br>' + result;
   setTimeout('imladris_date("' + id + '");', '1000');
   return true
